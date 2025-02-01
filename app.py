@@ -1,5 +1,5 @@
 # Bits and bytes
-
+import math
 from lib.artemethichoperators import ArtemethicOperators as AOP
 
 
@@ -17,6 +17,8 @@ def main():
 
     #  Converting the decimal digits to Hexadecimal
     prompt = DecimalToHexadecimal(prompt)
+
+    print_message()
 
 
 def binary_to_bits(arg:str):
@@ -56,11 +58,8 @@ def BinaryToDecimal(bits:tuple):
             * Param: bits (tuple)
             * Return: dec (list)
         """
-
-
         
         dec = []
-
 
         #  Converting the binary digits to decimal
         for i in range(0, len(bits)):
@@ -78,7 +77,6 @@ def BinaryToDecimal(bits:tuple):
 
             dec.append(total)
 
-        print(dec)
         return dec
 
 def DecimalToHexadecimal(num:tuple):
@@ -90,21 +88,43 @@ def DecimalToHexadecimal(num:tuple):
         * Return: None
     """
 
+    base = 16
+    string = "x0"
+
+    symbols = {
+        #  Adopted from Google's Gemini
+    0: '0', 1: '1', 2: '2', 
+    3: '3', 4: '4', 5: '5',
+    6: '6', 7: '7', 8: '8', 
+    9: '9', 10: 'A', 11: 'B',
+    12: 'C', 13: 'D', 14: 'E', 15: 'F'
+}
     #  Calculate the remainder of the decimal digits
     for i in range(0, len(num)):
 
+        # Calculate the reminder and Quotient of the decimal digits
         
-        #  Calculate the remainder of the decimal digits
-        remainder = num[i] % 16
-
-        #  Calculate the Quotient of the decimal digits
-
-def DecimalToASCII(num:int):
-    pass
+        string += symbols[AOP().Quotient(num[i], base)] if AOP().Quotient(num[i], base) > 9 else str(AOP().Quotient(num[i], base))
+        string += symbols[AOP().Remainder(num[i], base)] if num[i] % base > 9 else str(AOP().Remainder(num[i], base))
 
 
-def print_message(num):
-    print(num)
+
+        print(string)
+
+def DecimalToASCII(num:tuple):
+    
+    #  Converting the decimal digits to ASCII
+
+    char= ""
+    for i in range(0, len(num)):
+        char += chr(num[i])
+    
+    print(char)
+
+
+def print_message():
+    print(f"Binary:\t Decimal: ")
+    print(f"Hexadecimal:\t ASCII:", )
 
 if __name__ == '__main__':
     main()
