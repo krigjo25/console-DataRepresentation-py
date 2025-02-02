@@ -15,10 +15,8 @@ def main():
     #  Converting the binary digits to decimal
     prompt = BinaryToDecimal(prompt)
 
-    #  Converting the decimal digits to Hexadecimal
-    prompt = DecimalToHexadecimal(prompt)
 
-    print_message()
+    print_message(prompt)
 
 
 def binary_to_bits(arg:str):
@@ -89,7 +87,7 @@ def DecimalToHexadecimal(num:tuple):
     """
 
     base = 16
-    string = "x0"
+    string = "#"
 
     symbols = {
         #  Adopted from Google's Gemini
@@ -100,16 +98,16 @@ def DecimalToHexadecimal(num:tuple):
     12: 'C', 13: 'D', 14: 'E', 15: 'F'
 }
     #  Calculate the remainder of the decimal digits
-    for i in range(0, len(num)):
-
+    for i in range(len(num), 0):
+        print(num)
+        print(i)
+        print(len(num))
         # Calculate the reminder and Quotient of the decimal digits
-        
-        string += symbols[AOP().Quotient(num[i], base)] if AOP().Quotient(num[i], base) > 9 else str(AOP().Quotient(num[i], base))
+        if num[i] % base == 0:
+            string += symbols[AOP().Quotient(num[i], base)] if AOP().Quotient(num[i], base) > 9 else int(AOP().Quotient(num[i], base))
         string += symbols[AOP().Remainder(num[i], base)] if num[i] % base > 9 else str(AOP().Remainder(num[i], base))
 
-
-
-        print(string)
+    return string
 
 def DecimalToASCII(num:tuple):
     
@@ -119,12 +117,12 @@ def DecimalToASCII(num:tuple):
     for i in range(0, len(num)):
         char += chr(num[i])
     
-    print(char)
+    return char
 
 
-def print_message():
-    print(f"Binary:\t Decimal: ")
-    print(f"Hexadecimal:\t ASCII:", )
+def print_message(arg:tuple):
+    print(f"Binary:\t Decimal:{arg} ")
+    print(f"Hexadecimal: {DecimalToHexadecimal(arg)}\t ASCII:{DecimalToASCII(arg)}", )
 
 if __name__ == '__main__':
     main()
